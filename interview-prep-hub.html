@@ -430,7 +430,7 @@ function companyPill(company) {
 }
 
 function render() {
-  const showCatFilter = currentSection !== "myQuestions";
+  const showCatFilter = currentSection === "all";
   document.getElementById("app").innerHTML = `
     <div class="header">
       <div class="header-top">
@@ -468,9 +468,9 @@ function filtered(arr) {
 
 function renderSection() {
   if (currentSection === "all")         return renderAll();
-  if (currentSection === "feedback")    return renderFeedback(filtered(db.feedback));
-  if (currentSection === "retro")       return renderRetro(filtered(db.retro));
-  if (currentSection === "expectedQs")  return renderExpected(filtered(db.expectedQs));
+  if (currentSection === "feedback")    return renderFeedback(db.feedback);
+  if (currentSection === "retro")       return renderRetro(db.retro);
+  if (currentSection === "expectedQs")  return renderExpected(db.expectedQs);
   if (currentSection === "myQuestions") return renderMyQs(db.myQuestions);
   return "";
 }
