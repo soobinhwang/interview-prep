@@ -24,37 +24,38 @@
       font-size: 14px; line-height: 1.6; min-height: 100vh;
     }
 
-    /* ── Header ── */
+    /* ── Primary nav ── */
     .header { padding: 24px 32px 0; border-bottom: 1px solid var(--border); }
     .header-top { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; }
     .header-top h1 { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
     .header-top span { font-size: 12px; color: var(--muted); }
 
-    /* ── Category nav ── */
-    .cat-nav { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 0; }
-    .cat-btn {
-      padding: 8px 14px; border-radius: 8px 8px 0 0;
+    .primary-nav { display: flex; gap: 4px; overflow-x: auto; }
+    .pnav-btn {
+      padding: 9px 18px; border-radius: 8px 8px 0 0;
       border: 1px solid transparent; border-bottom: none;
       background: none; color: var(--muted);
-      font-size: 13px; font-weight: 500; cursor: pointer;
+      font-size: 14px; font-weight: 500; cursor: pointer;
       white-space: nowrap; transition: color .15s, background .15s;
     }
-    .cat-btn:hover { color: var(--text); background: var(--surface2); }
-    .cat-btn.active { background: var(--surface); color: var(--text); border-color: var(--border); }
+    .pnav-btn:hover { color: var(--text); background: var(--surface2); }
+    .pnav-btn.active { background: var(--surface); color: var(--text); border-color: var(--border); }
 
-    /* ── Section tabs ── */
-    .section-tabs {
-      display: flex; padding: 0 32px;
+    /* ── Secondary (category) filter ── */
+    .secondary-nav {
+      display: flex; gap: 6px; padding: 12px 32px;
       background: var(--surface); border-bottom: 1px solid var(--border);
+      overflow-x: auto;
     }
-    .sec-btn {
-      padding: 11px 18px; background: none; border: none;
-      border-bottom: 2px solid transparent; color: var(--muted);
-      font-size: 13px; font-weight: 500; cursor: pointer;
-      transition: color .15s, border-color .15s;
+    .snav-btn {
+      padding: 4px 12px; border-radius: 20px;
+      border: 1px solid var(--border);
+      background: none; color: var(--muted);
+      font-size: 12px; font-weight: 500; cursor: pointer;
+      white-space: nowrap; transition: all .15s;
     }
-    .sec-btn:hover { color: var(--text); }
-    .sec-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .snav-btn:hover { color: var(--text); border-color: #444; }
+    .snav-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
     /* ── Main ── */
     .main { padding: 24px 32px 48px; max-width: 860px; }
@@ -63,10 +64,28 @@
       letter-spacing: .6px; color: var(--muted); margin-bottom: 16px;
     }
 
+    /* ── Group header (used in "All" view) ── */
+    .group-header {
+      font-size: 12px; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .5px;
+      margin: 28px 0 12px; padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .group-header:first-child { margin-top: 0; }
+
     /* ── Company pill ── */
     .co-pill {
       display: inline-block; padding: 2px 8px; border-radius: 20px;
       font-size: 11px; font-weight: 600; flex-shrink: 0;
+    }
+
+    /* ── Type badge (for All view) ── */
+    .type-badge {
+      display: inline-block; padding: 2px 7px; border-radius: 4px;
+      font-size: 10px; font-weight: 700; letter-spacing: .4px;
+      text-transform: uppercase; flex-shrink: 0;
+      background: var(--surface2); color: var(--muted);
+      border: 1px solid var(--border);
     }
 
     /* ── Risk badge ── */
@@ -161,21 +180,22 @@ const COMPANY_STYLE = {
   "Cova":      { bg: "rgba(244,114,182,.18)", color: "#f9a8d4" }
 };
 
+const SECTIONS = [
+  { key: "all",         label: "All"          },
+  { key: "feedback",    label: "Feedback"     },
+  { key: "retro",       label: "Retro"        },
+  { key: "expectedQs",  label: "Expected Q's" },
+  { key: "myQuestions", label: "My Questions" }
+];
+
 const CATEGORIES = [
-  { key: "all",        label: "All"                  },
+  { key: "all",        label: "All topics"           },
   { key: "research",   label: "Research & Validation" },
   { key: "ai",         label: "AI & Tools"            },
   { key: "process",    label: "Design Process"        },
   { key: "collab",     label: "Collaboration"         },
   { key: "behavioral", label: "Behavioral"            },
   { key: "personas",   label: "Personas & Users"      }
-];
-
-const SECTIONS = [
-  { key: "feedback",    label: "Feedback"     },
-  { key: "retro",       label: "Retro"         },
-  { key: "expectedQs",  label: "Expected Q's"  },
-  { key: "myQuestions", label: "My Questions"  }
 ];
 
 const db = {
@@ -260,7 +280,7 @@ const db = {
     {
       company: "OpusClip", category: "behavioral",
       title: "Presentation ran long — time management flagged",
-      problem: "Time management was explicitly flagged. Running over signals you haven't practiced enough to know what to cut, and it can cost you the design challenge portion.",
+      problem: "Time management was explicitly flagged. Running over signals you haven't practiced enough to know what to cut.",
       fix: "Time every answer when practicing. Walk me through your process: 90 seconds max. If you catch yourself saying 'and also...' — stop.",
       triggers: ["Tell me about yourself","Portfolio presentation","Design challenge walkthrough"]
     },
@@ -401,8 +421,8 @@ const db = {
   }
 };
 
+let currentSection = "all";
 let currentCat = "all";
-let currentSection = "feedback";
 
 function companyPill(company) {
   const s = COMPANY_STYLE[company] || { bg: "rgba(150,150,150,.15)", color: "#aaa" };
@@ -410,25 +430,27 @@ function companyPill(company) {
 }
 
 function render() {
+  const showCatFilter = currentSection !== "myQuestions";
   document.getElementById("app").innerHTML = `
     <div class="header">
       <div class="header-top">
         <h1>Interview Prep</h1>
         <span>${Object.keys(COMPANY_STYLE).length} companies</span>
       </div>
-      <nav class="cat-nav">
-        ${CATEGORIES.map(c => `
-          <button class="cat-btn ${c.key === currentCat ? "active" : ""}"
-                  onclick="switchCat('${c.key}')">${c.label}</button>
+      <nav class="primary-nav">
+        ${SECTIONS.map(s => `
+          <button class="pnav-btn ${s.key === currentSection ? "active" : ""}"
+                  onclick="switchSection('${s.key}')">${s.label}</button>
         `).join("")}
       </nav>
     </div>
-    <div class="section-tabs">
-      ${SECTIONS.map(s => `
-        <button class="sec-btn ${s.key === currentSection ? "active" : ""}"
-                onclick="switchSection('${s.key}')">${s.label}</button>
-      `).join("")}
-    </div>
+    ${showCatFilter ? `
+      <div class="secondary-nav">
+        ${CATEGORIES.map(c => `
+          <button class="snav-btn ${c.key === currentCat ? "active" : ""}"
+                  onclick="switchCat('${c.key}')">${c.label}</button>
+        `).join("")}
+      </div>` : ""}
     <div class="main">${renderSection()}</div>
   `;
   document.querySelectorAll(".card-head").forEach(el => {
@@ -436,8 +458,8 @@ function render() {
   });
 }
 
-function switchCat(c) { currentCat = c; render(); }
 function switchSection(s) { currentSection = s; render(); }
+function switchCat(c) { currentCat = c; render(); }
 
 function filtered(arr) {
   if (!arr) return [];
@@ -445,6 +467,7 @@ function filtered(arr) {
 }
 
 function renderSection() {
+  if (currentSection === "all")         return renderAll();
   if (currentSection === "feedback")    return renderFeedback(filtered(db.feedback));
   if (currentSection === "retro")       return renderRetro(filtered(db.retro));
   if (currentSection === "expectedQs")  return renderExpected(filtered(db.expectedQs));
@@ -452,70 +475,79 @@ function renderSection() {
   return "";
 }
 
-function renderFeedback(items) {
-  if (!items.length) return empty("No feedback for this category.");
-  return `<p class="section-label">Recurring patterns to fix</p>` +
-    items.map((item, i) => `
-      <div class="card">
-        <div class="card-head">
-          <div class="card-num">${i + 1}</div>
-          <div class="card-title">${item.title}</div>
-          ${companyPill(item.company)}
-          <span class="chevron">&#9654;</span>
-        </div>
-        <div class="card-body">
-          <p class="sub-label" style="color:var(--high)">The problem</p>
-          <div class="problem-block">${item.problem}</div>
-          <p class="sub-label" style="color:var(--low)">What to do instead</p>
-          <div class="fix-block">${item.fix}</div>
-          <p class="sub-label" style="color:var(--muted)">Watch for in these questions</p>
-          <ul class="trigger-list">${item.triggers.map(t => `<li>${t}</li>`).join("")}</ul>
-        </div>
-      </div>`).join("");
+function renderAll() {
+  const fb = filtered(db.feedback);
+  const rt = filtered(db.retro);
+  const eq = filtered(db.expectedQs);
+  if (!fb.length && !rt.length && !eq.length) return empty("Nothing found for this topic.");
+  let html = "";
+  if (fb.length) html += `<div class="group-header">Feedback (${fb.length})</div>` + renderFeedback(fb, true);
+  if (rt.length) html += `<div class="group-header">Retro (${rt.length})</div>` + renderRetro(rt, true);
+  if (eq.length) html += `<div class="group-header">Expected Q's (${eq.length})</div>` + renderExpected(eq, true);
+  return html;
 }
 
-function renderRetro(items) {
-  if (!items.length) return empty("No retro notes for this category.");
-  return `<p class="section-label">What I said vs. what to say</p>` +
-    items.map(item => `
-      <div class="card">
-        <div class="card-head">
-          <span class="badge ${item.risk}">${item.risk}</span>
-          <div class="card-title">${item.question}</div>
-          ${companyPill(item.company)}
-          <span class="chevron">&#9654;</span>
-        </div>
-        <div class="card-body">
-          <div class="retro-compare">
-            <div class="retro-panel wrong-panel">
-              <div class="retro-label">&#10005; What I said</div>${item.whatISaid}
-            </div>
-            <div class="retro-panel right-panel">
-              <div class="retro-label">&#10003; Better answer</div>${item.betterAnswer}
-            </div>
-          </div>
-        </div>
-      </div>`).join("");
+function renderFeedback(items, inAll = false) {
+  if (!items.length) return empty("No feedback for this topic.");
+  return items.map((item, i) => `
+    <div class="card">
+      <div class="card-head">
+        ${inAll ? "" : `<div class="card-num">${i + 1}</div>`}
+        <div class="card-title">${item.title}</div>
+        ${companyPill(item.company)}
+        <span class="chevron">&#9654;</span>
+      </div>
+      <div class="card-body">
+        <p class="sub-label" style="color:var(--high)">The problem</p>
+        <div class="problem-block">${item.problem}</div>
+        <p class="sub-label" style="color:var(--low)">What to do instead</p>
+        <div class="fix-block">${item.fix}</div>
+        <p class="sub-label" style="color:var(--muted)">Watch for in these questions</p>
+        <ul class="trigger-list">${item.triggers.map(t => `<li>${t}</li>`).join("")}</ul>
+      </div>
+    </div>`).join("");
 }
 
-function renderExpected(items) {
-  if (!items.length) return empty("No expected questions for this category.");
-  return `<p class="section-label">Scripted answers &#8212; click to expand</p>` +
-    items.map(item => `
-      <div class="card">
-        <div class="card-head">
-          <span class="badge ${item.risk}">${item.risk}</span>
-          <div class="card-title">${item.question}</div>
-          ${companyPill(item.company)}
-          <span class="chevron">&#9654;</span>
-        </div>
-        <div class="card-body">
-          <div class="headline-block">
-            <div class="sub-label">10-second headline</div>${item.headline}
+function renderRetro(items, inAll = false) {
+  if (!items.length) return empty("No retro notes for this topic.");
+  return items.map(item => `
+    <div class="card">
+      <div class="card-head">
+        <span class="badge ${item.risk}">${item.risk}</span>
+        <div class="card-title">${item.question}</div>
+        ${companyPill(item.company)}
+        <span class="chevron">&#9654;</span>
+      </div>
+      <div class="card-body">
+        <div class="retro-compare">
+          <div class="retro-panel wrong-panel">
+            <div class="retro-label">&#10005; What I said</div>${item.whatISaid}
           </div>
-          <div class="answer-text">${item.answer}</div>
+          <div class="retro-panel right-panel">
+            <div class="retro-label">&#10003; Better answer</div>${item.betterAnswer}
+          </div>
         </div>
-      </div>`).join("");
+      </div>
+    </div>`).join("");
+}
+
+function renderExpected(items, inAll = false) {
+  if (!items.length) return empty("No expected questions for this topic.");
+  return items.map(item => `
+    <div class="card">
+      <div class="card-head">
+        <span class="badge ${item.risk}">${item.risk}</span>
+        <div class="card-title">${item.question}</div>
+        ${companyPill(item.company)}
+        <span class="chevron">&#9654;</span>
+      </div>
+      <div class="card-body">
+        <div class="headline-block">
+          <div class="sub-label">10-second headline</div>${item.headline}
+        </div>
+        <div class="answer-text">${item.answer}</div>
+      </div>
+    </div>`).join("");
 }
 
 function renderMyQs(qs) {
