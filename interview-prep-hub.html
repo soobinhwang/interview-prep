@@ -165,6 +165,22 @@
     .q-item { padding: 8px 0; font-size: 13px; line-height: 1.5; border-bottom: 1px solid var(--border); }
     .q-item:last-child { border-bottom: none; }
 
+    /* ── Feedback items (inside company group) ── */
+    .fb-item {
+      display: flex; gap: 12px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .fb-item:last-child { border-bottom: none; }
+    .fb-item-num {
+      width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+      background: var(--surface2); border: 1px solid var(--border);
+      font-size: 11px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center; color: var(--muted);
+    }
+    .fb-item-body { flex: 1; }
+    .fb-item-title { font-weight: 500; font-size: 14px; margin-bottom: 2px; }
+
     /* ── Empty ── */
     .empty { text-align: center; padding: 48px 20px; color: var(--muted); font-size: 13px; }
   </style>
@@ -489,23 +505,42 @@ function renderAll() {
 
 function renderFeedback(items, inAll = false) {
   if (!items.length) return empty("No feedback for this topic.");
-  return items.map((item, i) => `
-    <div class="card">
-      <div class="card-head">
-        ${inAll ? "" : `<div class="card-num">${i + 1}</div>`}
-        <div class="card-title">${item.title}</div>
-        ${companyPill(item.company)}
-        <span class="chevron">&#9654;</span>
-      </div>
-      <div class="card-body">
-        <p class="sub-label" style="color:var(--high)">The problem</p>
-        <div class="problem-block">${item.problem}</div>
-        <p class="sub-label" style="color:var(--low)">What to do instead</p>
-        <div class="fix-block">${item.fix}</div>
-        <p class="sub-label" style="color:var(--muted)">Watch for in these questions</p>
-        <ul class="trigger-list">${item.triggers.map(t => `<li>${t}</li>`).join("")}</ul>
-      </div>
-    </div>`).join("");
+
+  // Group by company, preserving insertion order
+  const groups = {};
+  items.forEach(item => {
+    if (!groups[item.company]) groups[item.company] = [];
+    groups[item.company].push(item);
+  });
+
+  return Object.entries(groups).map(([company, entries]) => {
+    const s = COMPANY_STYLE[company] || { bg: "rgba(150,150,150,.15)", color: "#aaa" };
+    const itemsHtml = entries.map((item, i) => `
+      <div class="fb-item">
+        <div class="fb-item-num">${i + 1}</div>
+        <div class="fb-item-body">
+          <div class="fb-item-title">${item.title}</div>
+          <p class="sub-label" style="color:var(--high);margin-top:10px">The problem</p>
+          <div class="problem-block">${item.problem}</div>
+          <p class="sub-label" style="color:var(--low)">What to do instead</p>
+          <div class="fix-block">${item.fix}</div>
+          <p class="sub-label" style="color:var(--muted)">Watch for in these questions</p>
+          <ul class="trigger-list">${item.triggers.map(t => `<li>${t}</li>`).join("")}</ul>
+        </div>
+      </div>`).join("");
+
+    return `
+      <div class="card">
+        <div class="card-head">
+          <span class="co-pill" style="background:${s.bg};color:${s.color}">${company}</span>
+          <div class="card-title" style="color:var(--muted);font-size:13px">${entries.length} pattern${entries.length > 1 ? "s" : ""}</div>
+          <span class="chevron">&#9654;</span>
+        </div>
+        <div class="card-body" style="padding:0 16px 16px">
+          ${itemsHtml}
+        </div>
+      </div>`;
+  }).join("");
 }
 
 function byRisk(arr) {
