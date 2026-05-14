@@ -20,26 +20,29 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 14px;
-      line-height: 1.6;
-      min-height: 100vh;
+      background: var(--bg); color: var(--text);
+      font-size: 14px; line-height: 1.6; min-height: 100vh;
     }
+
+    /* ── Header ── */
     .header { padding: 24px 32px 0; border-bottom: 1px solid var(--border); }
     .header-top { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; }
     .header-top h1 { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
     .header-top span { font-size: 12px; color: var(--muted); }
-    .company-nav { display: flex; gap: 4px; overflow-x: auto; }
-    .co-btn {
-      padding: 8px 16px; border-radius: 8px 8px 0 0;
+
+    /* ── Category nav ── */
+    .cat-nav { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 0; }
+    .cat-btn {
+      padding: 8px 14px; border-radius: 8px 8px 0 0;
       border: 1px solid transparent; border-bottom: none;
       background: none; color: var(--muted);
       font-size: 13px; font-weight: 500; cursor: pointer;
       white-space: nowrap; transition: color .15s, background .15s;
     }
-    .co-btn:hover { color: var(--text); background: var(--surface2); }
-    .co-btn.active { background: var(--surface); color: var(--text); border-color: var(--border); }
+    .cat-btn:hover { color: var(--text); background: var(--surface2); }
+    .cat-btn.active { background: var(--surface); color: var(--text); border-color: var(--border); }
+
+    /* ── Section tabs ── */
     .section-tabs {
       display: flex; padding: 0 32px;
       background: var(--surface); border-bottom: 1px solid var(--border);
@@ -52,11 +55,21 @@
     }
     .sec-btn:hover { color: var(--text); }
     .sec-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── Main ── */
     .main { padding: 24px 32px 48px; max-width: 860px; }
     .section-label {
       font-size: 11px; font-weight: 600; text-transform: uppercase;
       letter-spacing: .6px; color: var(--muted); margin-bottom: 16px;
     }
+
+    /* ── Company pill ── */
+    .co-pill {
+      display: inline-block; padding: 2px 8px; border-radius: 20px;
+      font-size: 11px; font-weight: 600; flex-shrink: 0;
+    }
+
+    /* ── Risk badge ── */
     .badge {
       display: inline-block; padding: 2px 7px; border-radius: 4px;
       font-size: 10px; font-weight: 700; letter-spacing: .5px;
@@ -65,13 +78,15 @@
     .high   { background: rgba(248,113,113,.15); color: var(--high); }
     .medium { background: rgba(251,146,60,.15);  color: var(--med);  }
     .low    { background: rgba(52,211,153,.15);   color: var(--low);  }
+
+    /* ── Accordion card ── */
     .card {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: 10px; margin-bottom: 8px; overflow: hidden;
     }
     .card-head {
       padding: 13px 16px; display: flex; align-items: center;
-      gap: 10px; cursor: pointer; user-select: none; transition: background .1s;
+      gap: 8px; cursor: pointer; user-select: none; transition: background .1s;
     }
     .card-head:hover { background: var(--surface2); }
     .card-num {
@@ -103,6 +118,8 @@
     .trigger-list { list-style: none; margin-top: 6px; }
     .trigger-list li { font-size: 12px; color: var(--muted); padding: 2px 0; }
     .trigger-list li::before { content: "↳ "; color: var(--accent); }
+
+    /* ── Retro compare ── */
     .retro-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
     @media (max-width: 620px) { .retro-compare { grid-template-columns: 1fr; } }
     .retro-panel { padding: 13px; border-radius: 8px; font-size: 13px; line-height: 1.65; }
@@ -111,6 +128,8 @@
     .wrong-panel .retro-label { color: var(--high); }
     .right-panel { background: rgba(52,211,153,.06); border: 1px solid rgba(52,211,153,.2); }
     .right-panel .retro-label { color: var(--low); }
+
+    /* ── Expected Qs ── */
     .headline-block {
       background: rgba(129,140,248,.08); border: 1px solid rgba(129,140,248,.2);
       border-radius: 8px; padding: 10px 14px; font-size: 13px;
@@ -118,251 +137,39 @@
     }
     .headline-block .sub-label { color: rgba(129,140,248,.6); margin-top: 0; }
     .answer-text { font-size: 13px; line-height: 1.75; color: var(--muted); white-space: pre-wrap; }
+
+    /* ── My Questions ── */
     .q-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     @media (max-width: 620px) { .q-grid { grid-template-columns: 1fr; } }
     .q-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
     .q-panel h3 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 14px; }
     .q-item { padding: 8px 0; font-size: 13px; line-height: 1.5; border-bottom: 1px solid var(--border); }
     .q-item:last-child { border-bottom: none; }
+
+    /* ── Empty ── */
     .empty { text-align: center; padding: 48px 20px; color: var(--muted); font-size: 13px; }
   </style>
 </head>
 <body>
 <div id="app"></div>
 <script>
-const db = {
-  "Boomi": {
-    feedback: [
-      {
-        title: "Validation sounds defensive, not methodical",
-        problem: "Phrases like ‘while it wasn’t perfect,’ ‘in a more ideal setup,’ and ‘it’s not as rich as moderated user research’ signal doubt in your own process. Interviewers hear: she knows this wasn’t enough.",
-        fix: "Stop apologizing for proxy signals. Reframe as a deliberate research strategy: ‘I designed a lightweight validation loop using three data sources — CS patterns from 100+ tickets, internal behavioral data, and heuristic review. The 50% click reduction post-launch confirmed we’d identified the right problem.’ No qualifiers.",
-        triggers: ["Walk me through your design process","How did you validate your designs?","How do you approach designing for scalability?"]
-      },
-      {
-        title: "AI answers sound interested, not practiced",
-        problem: "Saying ‘I’ve been actively experimenting’ and ‘I’m interested in teams where AI is applied thoughtfully’ are interest statements, not competence statements. For an AI product company like Boomi, this reads as passive.",
-        fix: "Lead with the artifact: ‘I led an 8-week AI workshop that upskilled our entire design team. I built a Figma plugin that automated part of our handoff. I prototype in working code using Claude Code — I can validate five interaction patterns in the time it used to take for one mockup.’",
-        triggers: ["What’s your experience with AI tools?","Walk me through your design process","Any design challenge question"]
-      },
-      {
-        title: "Experience not connected to their specific problem",
-        problem: "You tell the CarltonOne story well, but stop at your outcome. You don’t bridge to ‘here’s exactly how this maps to what you’re building.’ Interviewers are evaluating whether you can do good work HERE.",
-        fix: "End every major answer with a one-sentence Boomi bridge. After templates: ‘...which maps directly to Boomi’s challenge of maintaining consistency across 10+ products.’ After personas: ‘...same tension Boomi navigates between developer users and business users.’",
-        triggers: ["Literally every question — make the bridge a habit"]
-      },
-      {
-        title: "Answers ramble — answer first, elaborate second",
-        problem: "Many answers are 4–5 sentences when 2–3 would land harder. In a technical interview, long answers signal uncertainty. When you know something cold, you say it in two sentences.",
-        fix: "1) Answer in 1–2 sentences. 2) Stop. Let them react. 3) Elaborate only if they ask or silence invites it. Practice catching yourself before ‘and also…’",
-        triggers: ["Walk me through your design process","Tell me about yourself","Any question where you say ‘and also…’"]
-      },
-      {
-        title: "Constraints framed as limitations, not growth",
-        problem: "You sound like ‘a designer who did her best in a constrained environment’ instead of ‘a designer who already has the ambiguity and systems muscles this role needs.’ Phrases like ‘direct user access was one of the biggest constraints’ make constraints sound like excuses.",
-        fix: "Reframe: ‘I built a multi-source validation approach that worked within our context — and the results confirmed it. One reason Boomi excites me is pairing that resourcefulness with deeper customer access.’ Also: give ONE specific engineering back-and-forth moment, not just ‘I bring engineers in early.’",
-        triggers: ["How do you work with engineers?","How did you handle limited user research access?"]
-      }
-    ],
-    myQuestions: { asked: [], shouldHaveAsked: [] },
-    retro: [
-      {
-        question: "How did you validate your designs?",
-        risk: "high",
-        whatISaid: "Defensively explained proxy signals. Used ‘while it wasn’t perfect,’ ‘in a more ideal setup,’ fell back on CS team doing the research. Sounded like apologizing for a limitation rather than owning a method.",
-        betterAnswer: "I use a multi-source validation approach — I triangulated across CS patterns from 100+ tickets, internal behavioral data, and heuristic review. Post-launch: 50% fewer navigation clicks and 40% increase in featured brand engagement confirmed the approach. For Boomi, I’d layer in prototype testing with 3–5 users on task completion before committing to a full build."
-      },
-      {
-        question: "What’s your experience with AI tools?",
-        risk: "high",
-        whatISaid: "Said ‘I’ve been actively experimenting’ and ‘I’m especially interested in teams where AI is applied thoughtfully.’ Aspirational language, no concrete artifacts. Read as passive for a role requiring AI fluency.",
-        betterAnswer: "I led an 8-week AI workshop at CarltonOne — upskilled the entire design team. I built a Figma plugin that automated part of our design-to-dev handoff. I prototype in working code using Claude Code daily — five interaction patterns in the time it used to take for one static mockup. For Boomi’s AI agent platform, designing for workflows where users monitor autonomous processes is a UX challenge I want to be solving."
-      },
-      {
-        question: "Walk me through your design process.",
-        risk: "high",
-        whatISaid: "Walked through all 6 steps robotically, went over 90 seconds, didn’t connect to Boomi’s specific context.",
-        betterAnswer: "Understand the problem, explore, build and test, iterate — but it flexes. [CarltonOne story in 60 sec: vague ask → structured framework → cross-functional collab → phased ship → 50% fewer clicks.] Two highlights: I bring engineers in during ideation, not handoff. And I prototype in working code with AI — I test real interactions faster than static mocks. For Boomi’s complexity, that speed matters."
-      },
-      {
-        question: "Tell me about a time you simplified something complex.",
-        risk: "medium",
-        whatISaid: "Told the CarltonOne storefront story well — but ended at the outcome without bridging to Boomi.",
-        betterAnswer: "Same story + Boomi bridge: ‘This is the same design challenge Boomi faces at a different scale — making a complex integration platform approachable without dumbing it down. Expose what matters most, use progressive disclosure for depth, design systems rather than one-off screens.’"
-      },
-      {
-        question: "How would you design [X] for Boomi? (design challenge)",
-        risk: "high",
-        whatISaid: "When asked ‘how would you validate that?’ defaulted to ‘I’d talk to CS’ or vague proxy signals. No specific method, user count, or metric named.",
-        betterAnswer: "Clarify user + job → frame the design tension → sketch a direction with trade-offs → ‘To validate: I’d run a prototype test with 3–5 users from each persona, give them a realistic scenario like finding and fixing a failed agent, measure task completion time and confidence, and iterate before committing to the full build.’"
-      }
-    ],
-    expectedQs: [
-      {
-        question: "How did you validate your designs?",
-        risk: "high",
-        headline: "I triangulate across multiple data sources, then validate with iterative prototypes. Post-launch metrics confirmed the approach.",
-        answer: "I use a multi-source validation approach — I don’t rely on a single signal. On the storefront redesign at CarltonOne, I triangulated across three inputs: behavioral patterns from 100+ support tickets through our CS team, internal usage data, and heuristic review against competitive benchmarks. That gave me enough confidence to commit to a direction.\n\nThen I validated through iterative prototyping — lightweight prototypes, cross-functional review with engineering and product, refined based on what we learned before shipping. Post-launch: 50% reduction in navigation clicks and 40% increase in featured brand engagement.\n\nFor Boomi, I’d bring that same resourcefulness — but layer in prototype testing with 3–5 users on task completion before committing to a full build."
-      },
-      {
-        question: "What’s your experience with AI tools?",
-        risk: "high",
-        headline: "I led an AI workshop, built a Figma plugin, and prototype in working code with Claude Code daily.",
-        answer: "Three concrete things. First, I led an 8-week AI workshop at CarltonOne where I upskilled our entire design team — that changed how the team operated. Second, I built a Figma plugin that automated part of our design-to-development handoff. Third, I actively prototype in working code using Claude Code and Cursor — I can validate five different interaction patterns in the time it used to take for one static mockup.\n\nWhat I’ve learned is that AI is most valuable when it accelerates the feedback loop, not just the output. You ship faster, you learn faster.\n\nThat’s why Boomi’s direction with AI agents is interesting to me — designing for a platform where users build and monitor autonomous workflows is a new kind of UX challenge. How do you give someone meaningful control over something that’s running on its own? That’s the kind of problem I want to be solving."
-      },
-      {
-        question: "Walk me through your design process.",
-        risk: "high",
-        headline: "Understand, explore, build, iterate — but it flexes. Let me show you with a specific project.",
-        answer: "At a high level: understand the problem, explore solutions, build and test, then iterate. But the real answer is my process flexes based on the project.\n\nOn the storefront redesign at CarltonOne, the ask was vague — “improve the shopping experience.” So I started by mapping the existing flow and documenting what we didn’t know. I created a structured framework — open questions, design considerations, user research questions — and used that to align stakeholders on the actual problem before I touched any UI.\n\nFrom there, I collaborated with engineering early to size solutions by effort and impact, prototyped the top candidates, and iterated through cross-functional reviews. We shipped in phases to reduce risk.\n\nTwo things I’d highlight: I bring engineers in during ideation, not at handoff. And I increasingly use AI tools to prototype in working code — I can test real interactions faster than static mocks allow. For a product as complex as Boomi’s, that speed matters."
-      },
-      {
-        question: "How would you design [X] for Boomi?",
-        risk: "high",
-        headline: "First — who’s the user and what’s the core job? Then let me sketch a direction and talk trade-offs.",
-        answer: "Step 1 — Clarify (15 sec): “Before I sketch anything: Who’s the primary user — developer building integrations, or business user using no-code tools? What’s the core job they’re trying to do? What does success look like — speed, accuracy, confidence?”\n\nStep 2 — Frame the tension (30 sec): Name the core design tension. For an agent dashboard: comprehensive visibility vs. actionable focus. Users don’t need to see 1,000 things; they need to see the 3 that need attention right now.\n\nStep 3 — Sketch a direction (60 sec): Status-first view — healthy agents collapsed into summary count, agents needing attention surface with clear status and recommended actions. Progressive disclosure: summary → detail → action.\n\nStep 4 — Trade-offs (30 sec): Simplicity vs. control. Solve with role-based defaults — business users see simplified view, developers see detailed view — both can switch.\n\nStep 5 — Validation (15 sec): “I’d run a prototype test with 3–5 users from each persona — scenario: ‘one of your agents just failed, find it and fix it.’ Measure task completion time and confidence. Iterate before committing to the full build.”"
-      },
-      {
-        question: "Tell me about a time you simplified something complex.",
-        risk: "medium",
-        headline: "I restructured a 4-click flow into a 2-click flow by redesigning the IA. 50% fewer clicks, 40% more engagement.",
-        answer: "The reward redemption flow at CarltonOne. The platform served 500+ enterprise clients with a massive catalog — merchandise, gift cards, tickets, experiences — and users couldn’t find what they were looking for. The existing flow buried categories behind 4 clicks, and only 15% of users ever discovered the featured brands section.\n\nI restructured the information architecture: exposed top-level taxonomy directly in a mega-menu, surfaced featured brands at the first level, and designed one flexible template that worked across different content types.\n\nResult: 50% fewer clicks to reach products, 40% increase in featured brand engagement, and engineering shipped it faster because one template replaced multiple custom patterns.\n\nThis is the same design challenge Boomi faces at a different scale — making a complex integration platform approachable without dumbing it down. Expose what matters most, use progressive disclosure for depth, design systems rather than one-off screens."
-      },
-      {
-        question: "How do you work with engineers?",
-        risk: "medium",
-        headline: "I bring engineers in during ideation, not at handoff — here’s a specific trade-off conversation.",
-        answer: "I bring engineers in during ideation because the best design decisions happen when technical constraints are on the table early.\n\nConcrete example: on the storefront redesign, I proposed exposing all category levels in the navigation. The developer flagged a performance concern — rendering that many nodes on load would slow the page. So we scoped it to two levels and shipped in half the time. That specific trade-off conversation is what I mean by early collaboration.\n\nIt also means I’ve learned to size solutions jointly — I’ll sketch three options, we quickly assess effort vs. impact, and commit to the one that balances both. For Boomi, where integrations are complex and engineering constraints are real, that model matters even more."
-      },
-      {
-        question: "How do you handle designing for multiple user personas?",
-        risk: "medium",
-        headline: "Map the tension between personas first, then design for both with progressive disclosure.",
-        answer: "At CarltonOne I designed for two primary personas with very different needs — admins configuring the platform and employees using it. The tension: admins needed control and visibility, employees needed simplicity and speed.\n\nMy approach: design for the most constrained persona first (employees needing simplicity), then layer in admin controls as secondary paths. Progressive disclosure meant employees didn’t see complexity they didn’t need, but admins could surface it.\n\nThis maps directly to the Boomi tension between developer users building integrations and business users using no-code tools. Same principle: design for clarity first, expose depth for the power user. Role-based defaults let each persona see the right level of complexity without feeling limited or overwhelmed."
-      }
-    ]
-  },
 
-  "CadMakers": {
-    feedback: [
-      {
-        title: "AI answer read as passive — flagged directly",
-        problem: "CadMakers explicitly listed AI fluency as a requirement. Your answer used phrases like 'I've been experimenting' and 'I'm interested in teams that...' — interest statements, not competence. The evaluator flagged this as a meaningful gap.",
-        fix: "Lead with artifacts every time: workshop you led, Figma plugin you built, Claude Code prototyping you do daily. Never say 'I'm interested in' — say 'I built' or 'I shipped.'",
-        triggers: ["What's your experience with AI tools?","Walk me through your process (mention AI in prototyping phase)"]
-      },
-      {
-        title: "Validation was the weakest moment — you flagged it yourself",
-        problem: "You identified this as 'the weakest moment — one of the most important questions in any design interview.' The answer defaulted to proxy signals and felt apologetic rather than methodical.",
-        fix: "Own the method. 'I designed a lightweight validation loop using three data sources — CS patterns from 100+ tickets, internal behavioral data, and heuristic review. Post-launch results confirmed the approach.' No qualifiers.",
-        triggers: ["How did you validate your designs?","How do you measure success?"]
-      },
-      {
-        title: "Never connected experience to their specific UX challenge",
-        problem: "CadMakers retro: 'Never connected my experience to their specific UX challenge — power vs. accessibility for non-specialist users.' The story ended at CarltonOne's outcome without bridging to CadMakers' context.",
-        fix: "For every company: one sentence at the end of each answer that maps your experience to their specific problem. Know their UX challenge before the interview and name it explicitly.",
-        triggers: ["Tell me about a project you're proud of","Walk me through your design process","Any portfolio question"]
-      },
-      {
-        title: "Answers not sharp enough — evaluators noticed",
-        problem: "Evaluators were asking 'can she be sharper in how she communicates decisions?' Long answers signal uncertainty. When you know something cold, two sentences is enough.",
-        fix: "Answer first, elaborate second. 1-2 sentence headline → stop → wait. Only elaborate if they ask or silence invites it.",
-        triggers: ["Any decision-making question","Walk me through your design process","Why did you choose that approach?"]
-      }
-    ],
-    myQuestions: { asked: [], shouldHaveAsked: [] },
-    retro: [
-      {
-        question: "What's your experience with AI tools?",
-        risk: "high",
-        whatISaid: "Used 'I've been actively experimenting' and 'I'm especially interested in teams where AI is applied thoughtfully.' Aspirational, no concrete artifacts. Read as passive for a JD that listed AI fluency as a requirement.",
-        betterAnswer: "I led an 8-week AI workshop at CarltonOne — upskilled the entire design team. I built a Figma plugin that automated part of our design-to-dev handoff. I prototype in working code using Claude Code daily — five interaction patterns in the time it takes for one static mockup. That's not theoretical; it's how I actually work."
-      },
-      {
-        question: "How did you validate your designs?",
-        risk: "high",
-        whatISaid: "Defaulted to proxy signals and qualified every statement. Sounded apologetic. Flagged by self as 'the weakest moment in the interview.'",
-        betterAnswer: "I designed a lightweight validation loop: CS patterns from 100+ tickets, internal behavioral data, heuristic review. Post-launch: 50% fewer navigation clicks and 40% increase in featured brand engagement confirmed the approach. No qualifiers — the results speak."
-      }
-    ],
-    expectedQs: []
-  },
-
-  "OpusClip": {
-    feedback: [
-      {
-        title: "Missed opportunities to connect to OpusClip's needs",
-        problem: "OpusClip retro: 'Missed opportunities to connect experience to OpusClip's needs.' The CarltonOne story was told well but never bridged to what OpusClip specifically builds or the UX problems they're solving.",
-        fix: "Research what OpusClip's specific design challenges are before the interview. End every answer: 'And this is why it maps directly to [OpusClip's specific context].'",
-        triggers: ["Tell me about a project","Walk me through your process","Any portfolio question"]
-      },
-      {
-        title: "Answers were unfocused and rambled",
-        problem: "OpusClip flagged 'some answers were unfocused/rambling.' Long answers signal uncertainty and lose the interviewer before you land the point.",
-        fix: "Headline first: answer the question in 1-2 sentences, stop, let them react. Elaborate only if invited. Practice cutting answers in half and seeing if the point still lands.",
-        triggers: ["Tell me about yourself","Walk me through your design process","Any open-ended question"]
-      },
-      {
-        title: "Presentation ran long — time management flagged",
-        problem: "Time management was explicitly flagged. Running over signals you haven't practiced enough to know what to cut, and it can cost you the design challenge portion.",
-        fix: "Time every answer when practicing. Walk me through your process: 90 seconds max. Portfolio presentation: know your hard stop. If you catch yourself saying 'and also...' — stop.",
-        triggers: ["Tell me about yourself","Portfolio presentation","Design challenge walkthrough"]
-      },
-      {
-        title: "Validation leaned on CS team, not owned as a method",
-        problem: "When pushed on whether you got enough information, the answer leaned on the CS team doing the research for you — passive framing instead of owning the approach as deliberate.",
-        fix: "Reframe proxy signals as a deliberate multi-source strategy you designed, not a workaround for lacking access. Own the method, cite the outcome.",
-        triggers: ["How did you validate your designs?","What research did you do?","How do you make decisions without user access?"]
-      }
-    ],
-    myQuestions: { asked: [], shouldHaveAsked: [] },
-    retro: [
-      {
-        question: "Walk me through a project (portfolio)",
-        risk: "high",
-        whatISaid: "Told the CarltonOne story well — but ran long and never connected the outcome to OpusClip's specific context or challenges.",
-        betterAnswer: "Same story, timed to 90 seconds, ending with: 'The reason this maps to OpusClip is [their specific challenge]. The same principle applies — [connect the dots explicitly].' Then stop."
-      }
-    ],
-    expectedQs: []
-  },
-
-  "Cova": {
-    feedback: [
-      {
-        title: "Validation always fell back to proxy signals",
-        problem: "At Cova Technical, almost every answer about measuring success fell back on 'proxy signals,' 'CS feedback,' and 'directional indicators.' Every answer hedged. Interviewers noticed the pattern across questions.",
-        fix: "Own proxy signals as a deliberate research strategy, not a workaround. Cite specific data sources, name the method, then land on the outcome: 'The post-launch results confirmed the approach.'",
-        triggers: ["How did you measure success?","How did you validate your designs?","How do you know if something worked?"]
-      },
-      {
-        title: "Engineering collaboration stayed too high-level",
-        problem: "Cova feedback: wanted 'more detailed stories of going back and forth with developers.' Answers stayed at 'I bring engineers in early' without the specific, messy back-and-forth that makes stories believable.",
-        fix: "Give ONE specific moment: 'I proposed X, the developer flagged Y, so we changed to Z and shipped in half the time.' The specificity is what makes it credible — not the general principle.",
-        triggers: ["How do you work with engineers?","Tell me about a cross-functional collaboration","Describe a time you had to compromise on a design decision"]
-      }
-    ],
-    myQuestions: { asked: [], shouldHaveAsked: [] },
-    retro: [
-      {
-        question: "How do you measure success / validate designs?",
-        risk: "high",
-        whatISaid: "Every answer hedged with 'proxy signals,' 'CS feedback,' 'directional indicators.' Pattern repeated across multiple questions in the same interview — noticeable.",
-        betterAnswer: "Name the method once, clearly: 'I use a multi-source validation loop — CS patterns from 100+ tickets, internal behavioral data, heuristic review. Post-launch: 50% fewer clicks confirmed we solved the right problem.' Then commit. No hedging."
-      },
-      {
-        question: "How do you work with engineers?",
-        risk: "medium",
-        whatISaid: "Stayed at the principle level: 'I bring engineers in early, I value collaboration.' No specific story of a real back-and-forth.",
-        betterAnswer: "'I proposed exposing all category levels in the nav. The developer flagged a performance issue — too many nodes on load. We scoped to two levels and shipped in half the time. That trade-off conversation is what I mean by early collaboration.' Specific, credible, done."
-      }
-    ],
-    expectedQs: []
-  }
+const COMPANY_STYLE = {
+  "Boomi":     { bg: "rgba(129,140,248,.18)", color: "#a5b4fc" },
+  "CadMakers": { bg: "rgba(251,146,60,.18)",  color: "#fdba74" },
+  "OpusClip":  { bg: "rgba(52,211,153,.18)",  color: "#6ee7b7" },
+  "Cova":      { bg: "rgba(244,114,182,.18)", color: "#f9a8d4" }
 };
 
-let currentCo = "Boomi";
-let currentSection = "feedback";
+const CATEGORIES = [
+  { key: "all",        label: "All"                  },
+  { key: "research",   label: "Research & Validation" },
+  { key: "ai",         label: "AI & Tools"            },
+  { key: "process",    label: "Design Process"        },
+  { key: "collab",     label: "Collaboration"         },
+  { key: "behavioral", label: "Behavioral"            },
+  { key: "personas",   label: "Personas & Users"      }
+];
 
 const SECTIONS = [
   { key: "feedback",    label: "Feedback"     },
@@ -371,49 +178,289 @@ const SECTIONS = [
   { key: "myQuestions", label: "My Questions"  }
 ];
 
+const db = {
+  feedback: [
+    {
+      company: "Boomi", category: "research",
+      title: "Validation sounds defensive, not methodical",
+      problem: "Phrases like 'while it wasn't perfect,' 'in a more ideal setup,' and 'it's not as rich as moderated user research' signal doubt in your own process. Interviewers hear: she knows this wasn't enough.",
+      fix: "Stop apologizing for proxy signals. Reframe as a deliberate strategy: 'I designed a lightweight validation loop using three data sources — CS patterns from 100+ tickets, internal behavioral data, and heuristic review. The 50% click reduction post-launch confirmed we'd identified the right problem.' No qualifiers.",
+      triggers: ["Walk me through your design process","How did you validate your designs?","How do you approach designing for scalability?"]
+    },
+    {
+      company: "Boomi", category: "ai",
+      title: "AI answers sound interested, not practiced",
+      problem: "Saying 'I've been actively experimenting' and 'I'm interested in teams where AI is applied thoughtfully' are interest statements, not competence statements. For an AI product company like Boomi, this reads as passive.",
+      fix: "Lead with the artifact: 'I led an 8-week AI workshop that upskilled our entire design team. I built a Figma plugin that automated part of our handoff. I prototype in working code using Claude Code — five interaction patterns in the time it used to take for one mockup.'",
+      triggers: ["What's your experience with AI tools?","Walk me through your design process","Any design challenge question"]
+    },
+    {
+      company: "Boomi", category: "behavioral",
+      title: "Experience not connected to their specific problem",
+      problem: "You tell the CarltonOne story well, but stop at your outcome. You don't bridge to 'here's exactly how this maps to what you're building.' Interviewers are evaluating whether you can do good work HERE.",
+      fix: "End every major answer with a one-sentence company bridge. After templates: '...which maps directly to Boomi's challenge of maintaining consistency across 10+ products.' After personas: '...same tension Boomi navigates between developer users and business users.'",
+      triggers: ["Literally every question — make the bridge a habit"]
+    },
+    {
+      company: "Boomi", category: "behavioral",
+      title: "Answers ramble — answer first, elaborate second",
+      problem: "Many answers are 4–5 sentences when 2–3 would land harder. In a technical interview, long answers signal uncertainty. When you know something cold, you say it in two sentences.",
+      fix: "1) Answer in 1–2 sentences. 2) Stop. Let them react. 3) Elaborate only if they ask or silence invites it. Practice catching yourself before 'and also…'",
+      triggers: ["Walk me through your design process","Tell me about yourself","Any question where you catch yourself saying 'and also…'"]
+    },
+    {
+      company: "Boomi", category: "behavioral",
+      title: "Constraints framed as limitations, not growth",
+      problem: "You sound like 'a designer who did her best in a constrained environment' instead of one who already has the ambiguity and systems muscles this role needs. Phrases like 'direct user access was one of the biggest constraints' make constraints sound like excuses.",
+      fix: "Reframe: 'I built a multi-source validation approach that worked within our context — and the results confirmed it. One reason Boomi excites me is pairing that resourcefulness with deeper customer access.' Also: give ONE specific engineering back-and-forth, not just 'I bring engineers in early.'",
+      triggers: ["How do you work with engineers?","How did you handle limited user research access?"]
+    },
+    {
+      company: "CadMakers", category: "ai",
+      title: "AI answer read as passive — flagged directly",
+      problem: "CadMakers explicitly listed AI fluency as a requirement. Your answer used 'I've been experimenting' and 'I'm interested in teams that...' — interest statements, not competence. The evaluator flagged this as a meaningful gap.",
+      fix: "Lead with artifacts every time: workshop you led, Figma plugin you built, Claude Code prototyping you do daily. Never say 'I'm interested in' — say 'I built' or 'I shipped.'",
+      triggers: ["What's your experience with AI tools?","Walk me through your process (mention AI in prototyping phase)"]
+    },
+    {
+      company: "CadMakers", category: "research",
+      title: "Validation was the weakest moment — you flagged it yourself",
+      problem: "You identified this as 'the weakest moment — one of the most important questions in any design interview.' The answer defaulted to proxy signals and felt apologetic rather than methodical.",
+      fix: "Own the method. 'I designed a lightweight validation loop using three data sources — CS patterns from 100+ tickets, internal behavioral data, and heuristic review. Post-launch results confirmed the approach.' No qualifiers.",
+      triggers: ["How did you validate your designs?","How do you measure success?"]
+    },
+    {
+      company: "CadMakers", category: "behavioral",
+      title: "Never connected experience to their specific UX challenge",
+      problem: "CadMakers retro: 'Never connected my experience to their specific UX challenge — power vs. accessibility for non-specialist users.' The story ended at CarltonOne's outcome without bridging to CadMakers' context.",
+      fix: "For every company: one sentence at the end of each answer that maps your experience to their specific problem. Know their UX challenge before the interview and name it explicitly.",
+      triggers: ["Tell me about a project you're proud of","Walk me through your design process","Any portfolio question"]
+    },
+    {
+      company: "CadMakers", category: "behavioral",
+      title: "Answers not sharp enough — evaluators noticed",
+      problem: "Evaluators were asking 'can she be sharper in how she communicates decisions?' Long answers signal uncertainty. When you know something cold, two sentences is enough.",
+      fix: "Answer first, elaborate second. 1-2 sentence headline → stop → wait. Only elaborate if they ask or silence invites it.",
+      triggers: ["Any decision-making question","Walk me through your design process","Why did you choose that approach?"]
+    },
+    {
+      company: "OpusClip", category: "behavioral",
+      title: "Missed opportunities to connect to OpusClip's needs",
+      problem: "OpusClip retro: 'Missed opportunities to connect experience to OpusClip's needs.' The CarltonOne story was told well but never bridged to OpusClip's specific context or UX problems.",
+      fix: "Research what OpusClip's specific design challenges are before the interview. End every answer: 'And this is why it maps directly to [OpusClip's specific context].'",
+      triggers: ["Tell me about a project","Walk me through your process","Any portfolio question"]
+    },
+    {
+      company: "OpusClip", category: "behavioral",
+      title: "Answers were unfocused and rambled",
+      problem: "OpusClip flagged 'some answers were unfocused/rambling.' Long answers signal uncertainty and lose the interviewer before you land the point.",
+      fix: "Headline first: answer the question in 1-2 sentences, stop, let them react. Elaborate only if invited. Practice cutting answers in half.",
+      triggers: ["Tell me about yourself","Walk me through your design process","Any open-ended question"]
+    },
+    {
+      company: "OpusClip", category: "behavioral",
+      title: "Presentation ran long — time management flagged",
+      problem: "Time management was explicitly flagged. Running over signals you haven't practiced enough to know what to cut, and it can cost you the design challenge portion.",
+      fix: "Time every answer when practicing. Walk me through your process: 90 seconds max. If you catch yourself saying 'and also...' — stop.",
+      triggers: ["Tell me about yourself","Portfolio presentation","Design challenge walkthrough"]
+    },
+    {
+      company: "OpusClip", category: "research",
+      title: "Validation leaned on CS team, not owned as a method",
+      problem: "When pushed on whether you got enough information, the answer leaned on the CS team doing the research for you — passive framing instead of owning the approach as deliberate.",
+      fix: "Reframe proxy signals as a deliberate multi-source strategy you designed, not a workaround. Own the method, cite the outcome.",
+      triggers: ["How did you validate your designs?","What research did you do?","How do you make decisions without user access?"]
+    },
+    {
+      company: "Cova", category: "research",
+      title: "Validation always fell back to proxy signals",
+      problem: "At Cova Technical, almost every answer about measuring success fell back on 'proxy signals,' 'CS feedback,' and 'directional indicators.' Every answer hedged. Interviewers noticed the pattern across questions.",
+      fix: "Own proxy signals as a deliberate research strategy, not a workaround. Cite specific data sources, name the method, then land on the outcome: 'The post-launch results confirmed the approach.'",
+      triggers: ["How did you measure success?","How did you validate your designs?","How do you know if something worked?"]
+    },
+    {
+      company: "Cova", category: "collab",
+      title: "Engineering collaboration stayed too high-level",
+      problem: "Cova feedback: wanted 'more detailed stories of going back and forth with developers.' Answers stayed at 'I bring engineers in early' without the specific, messy back-and-forth that makes stories believable.",
+      fix: "Give ONE specific moment: 'I proposed X, the developer flagged Y, so we changed to Z and shipped in half the time.' The specificity is what makes it credible — not the general principle.",
+      triggers: ["How do you work with engineers?","Tell me about a cross-functional collaboration","Describe a time you had to compromise on a design decision"]
+    }
+  ],
+
+  retro: [
+    {
+      company: "Boomi", category: "research", risk: "high",
+      question: "How did you validate your designs?",
+      whatISaid: "Defensively explained proxy signals. Used 'while it wasn't perfect,' 'in a more ideal setup,' fell back on CS team doing the research. Sounded like apologizing for a limitation rather than owning a method.",
+      betterAnswer: "I use a multi-source validation approach — I triangulated across CS patterns from 100+ tickets, internal behavioral data, and heuristic review. Post-launch: 50% fewer navigation clicks and 40% increase in featured brand engagement confirmed the approach. For Boomi, I'd layer in prototype testing with 3–5 users on task completion before committing to a full build."
+    },
+    {
+      company: "Boomi", category: "ai", risk: "high",
+      question: "What's your experience with AI tools?",
+      whatISaid: "Said 'I've been actively experimenting' and 'I'm especially interested in teams where AI is applied thoughtfully.' Aspirational language, no concrete artifacts. Read as passive for a role requiring AI fluency.",
+      betterAnswer: "I led an 8-week AI workshop at CarltonOne — upskilled the entire design team. I built a Figma plugin that automated part of our design-to-dev handoff. I prototype in working code using Claude Code daily — five interaction patterns in the time it used to take for one static mockup. For Boomi's AI agent platform, designing for workflows where users monitor autonomous processes is a UX challenge I want to be solving."
+    },
+    {
+      company: "Boomi", category: "process", risk: "high",
+      question: "Walk me through your design process.",
+      whatISaid: "Walked through all 6 steps robotically, went over 90 seconds, didn't connect to Boomi's specific context.",
+      betterAnswer: "Understand the problem, explore, build and test, iterate — but it flexes. [CarltonOne story in 60 sec: vague ask → structured framework → cross-functional collab → phased ship → 50% fewer clicks.] Two highlights: I bring engineers in during ideation, not handoff. And I prototype in working code with AI — I test real interactions faster than static mocks. For Boomi's complexity, that speed matters."
+    },
+    {
+      company: "Boomi", category: "behavioral", risk: "medium",
+      question: "Tell me about a time you simplified something complex.",
+      whatISaid: "Told the CarltonOne storefront story well — but ended at the outcome without bridging to Boomi.",
+      betterAnswer: "Same story + Boomi bridge: 'This is the same design challenge Boomi faces at a different scale — making a complex integration platform approachable without dumbing it down. Expose what matters most, use progressive disclosure for depth, design systems rather than one-off screens.'"
+    },
+    {
+      company: "Boomi", category: "process", risk: "high",
+      question: "How would you design [X] for Boomi? (design challenge)",
+      whatISaid: "When asked 'how would you validate that?' defaulted to 'I'd talk to CS' or vague proxy signals. No specific method, user count, or metric named.",
+      betterAnswer: "Clarify user + job → frame the design tension → sketch a direction with trade-offs → 'To validate: I'd run a prototype test with 3–5 users from each persona, give them a realistic scenario like finding and fixing a failed agent, measure task completion time and confidence, and iterate before committing to the full build.'"
+    },
+    {
+      company: "CadMakers", category: "ai", risk: "high",
+      question: "What's your experience with AI tools?",
+      whatISaid: "Used 'I've been actively experimenting' and 'I'm especially interested in teams where AI is applied thoughtfully.' Aspirational, no concrete artifacts. Read as passive for a JD that listed AI fluency as a requirement.",
+      betterAnswer: "I led an 8-week AI workshop at CarltonOne — upskilled the entire design team. I built a Figma plugin that automated part of our design-to-dev handoff. I prototype in working code using Claude Code daily — five interaction patterns in the time it takes for one static mockup. That's not theoretical; it's how I actually work."
+    },
+    {
+      company: "CadMakers", category: "research", risk: "high",
+      question: "How did you validate your designs?",
+      whatISaid: "Defaulted to proxy signals and qualified every statement. Sounded apologetic. Flagged by self as 'the weakest moment in the interview.'",
+      betterAnswer: "I designed a lightweight validation loop: CS patterns from 100+ tickets, internal behavioral data, heuristic review. Post-launch: 50% fewer navigation clicks and 40% increase in featured brand engagement confirmed the approach. No qualifiers — the results speak."
+    },
+    {
+      company: "OpusClip", category: "process", risk: "high",
+      question: "Walk me through a project (portfolio)",
+      whatISaid: "Told the CarltonOne story well — but ran long and never connected the outcome to OpusClip's specific context or challenges.",
+      betterAnswer: "Same story, timed to 90 seconds, ending with: 'The reason this maps to OpusClip is [their specific challenge]. The same principle applies — [connect the dots explicitly].' Then stop."
+    },
+    {
+      company: "Cova", category: "research", risk: "high",
+      question: "How do you measure success / validate designs?",
+      whatISaid: "Every answer hedged with 'proxy signals,' 'CS feedback,' 'directional indicators.' Pattern repeated across multiple questions in the same interview — noticeable.",
+      betterAnswer: "Name the method once, clearly: 'I use a multi-source validation loop — CS patterns from 100+ tickets, internal behavioral data, heuristic review. Post-launch: 50% fewer clicks confirmed we solved the right problem.' Then commit. No hedging."
+    },
+    {
+      company: "Cova", category: "collab", risk: "medium",
+      question: "How do you work with engineers?",
+      whatISaid: "Stayed at the principle level: 'I bring engineers in early, I value collaboration.' No specific story of a real back-and-forth.",
+      betterAnswer: "'I proposed exposing all category levels in the nav. The developer flagged a performance issue — too many nodes on load. We scoped to two levels and shipped in half the time. That trade-off conversation is what I mean by early collaboration.' Specific, credible, done."
+    }
+  ],
+
+  expectedQs: [
+    {
+      company: "Boomi", category: "research", risk: "high",
+      question: "How did you validate your designs?",
+      headline: "I triangulate across multiple data sources, then validate with iterative prototypes. Post-launch metrics confirmed the approach.",
+      answer: "I use a multi-source validation approach — I don't rely on a single signal. On the storefront redesign at CarltonOne, I triangulated across three inputs: behavioral patterns from 100+ support tickets through our CS team, internal usage data, and heuristic review against competitive benchmarks. That gave me enough confidence to commit to a direction.\n\nThen I validated through iterative prototyping — lightweight prototypes, cross-functional review with engineering and product, refined based on what we learned before shipping. Post-launch: 50% reduction in navigation clicks and 40% increase in featured brand engagement.\n\nFor Boomi, I'd bring that same resourcefulness — but layer in prototype testing with 3–5 users on task completion before committing to a full build."
+    },
+    {
+      company: "Boomi", category: "ai", risk: "high",
+      question: "What's your experience with AI tools?",
+      headline: "I led an AI workshop, built a Figma plugin, and prototype in working code with Claude Code daily.",
+      answer: "Three concrete things. First, I led an 8-week AI workshop at CarltonOne where I upskilled our entire design team — that changed how the team operated. Second, I built a Figma plugin that automated part of our design-to-development handoff. Third, I actively prototype in working code using Claude Code and Cursor — I can validate five different interaction patterns in the time it used to take for one static mockup.\n\nWhat I've learned is that AI is most valuable when it accelerates the feedback loop, not just the output. You ship faster, you learn faster.\n\nThat's why Boomi's direction with AI agents is interesting to me — designing for a platform where users build and monitor autonomous workflows is a new kind of UX challenge. How do you give someone meaningful control over something that's running on its own? That's the kind of problem I want to be solving."
+    },
+    {
+      company: "Boomi", category: "process", risk: "high",
+      question: "Walk me through your design process.",
+      headline: "Understand, explore, build, iterate — but it flexes. Let me show you with a specific project.",
+      answer: "At a high level: understand the problem, explore solutions, build and test, then iterate. But the real answer is my process flexes based on the project.\n\nOn the storefront redesign at CarltonOne, the ask was vague — \"improve the shopping experience.\" So I started by mapping the existing flow and documenting what we didn't know. I created a structured framework — open questions, design considerations, user research questions — and used that to align stakeholders on the actual problem before I touched any UI.\n\nFrom there, I collaborated with engineering early to size solutions by effort and impact, prototyped the top candidates, and iterated through cross-functional reviews. We shipped in phases to reduce risk.\n\nTwo things I'd highlight: I bring engineers in during ideation, not at handoff. And I increasingly use AI tools to prototype in working code — I can test real interactions faster than static mocks allow. For a product as complex as Boomi's, that speed matters."
+    },
+    {
+      company: "Boomi", category: "process", risk: "high",
+      question: "How would you design [X] for Boomi?",
+      headline: "First — who's the user and what's the core job? Then let me sketch a direction and talk trade-offs.",
+      answer: "Step 1 — Clarify (15 sec): Before I sketch anything: Who's the primary user — developer building integrations, or business user using no-code tools? What's the core job? What does success look like — speed, accuracy, confidence?\n\nStep 2 — Frame the tension (30 sec): Name the core design tension. For an agent dashboard: comprehensive visibility vs. actionable focus. Users don't need to see 1,000 things; they need to see the 3 that need attention right now.\n\nStep 3 — Sketch a direction (60 sec): Status-first view — healthy agents collapsed into summary count, agents needing attention surface with clear status and recommended actions. Progressive disclosure: summary → detail → action.\n\nStep 4 — Trade-offs (30 sec): Simplicity vs. control. Solve with role-based defaults — business users see simplified view, developers see detailed view — both can switch.\n\nStep 5 — Validation (15 sec): I'd run a prototype test with 3–5 users from each persona — scenario: 'one of your agents just failed, find it and fix it.' Measure task completion time and confidence. Iterate before committing to the full build."
+    },
+    {
+      company: "Boomi", category: "behavioral", risk: "medium",
+      question: "Tell me about a time you simplified something complex.",
+      headline: "I restructured a 4-click flow into a 2-click flow by redesigning the IA. 50% fewer clicks, 40% more engagement.",
+      answer: "The reward redemption flow at CarltonOne. The platform served 500+ enterprise clients with a massive catalog — merchandise, gift cards, tickets, experiences — and users couldn't find what they were looking for. The existing flow buried categories behind 4 clicks, and only 15% of users ever discovered the featured brands section.\n\nI restructured the information architecture: exposed top-level taxonomy directly in a mega-menu, surfaced featured brands at the first level, and designed one flexible template that worked across different content types.\n\nResult: 50% fewer clicks to reach products, 40% increase in featured brand engagement, and engineering shipped it faster because one template replaced multiple custom patterns.\n\nThis is the same design challenge Boomi faces at a different scale — making a complex integration platform approachable without dumbing it down. Expose what matters most, use progressive disclosure for depth, design systems rather than one-off screens."
+    },
+    {
+      company: "Boomi", category: "collab", risk: "medium",
+      question: "How do you work with engineers?",
+      headline: "I bring engineers in during ideation, not at handoff — here's a specific trade-off conversation.",
+      answer: "I bring engineers in during ideation because the best design decisions happen when technical constraints are on the table early.\n\nConcrete example: on the storefront redesign, I proposed exposing all category levels in the navigation. The developer flagged a performance concern — rendering that many nodes on load would slow the page. So we scoped it to two levels and shipped in half the time. That specific trade-off conversation is what I mean by early collaboration.\n\nIt also means I've learned to size solutions jointly — I'll sketch three options, we quickly assess effort vs. impact, and commit to the one that balances both. For Boomi, where integrations are complex and engineering constraints are real, that model matters even more."
+    },
+    {
+      company: "Boomi", category: "personas", risk: "medium",
+      question: "How do you handle designing for multiple user personas?",
+      headline: "Map the tension between personas first, then design for both with progressive disclosure.",
+      answer: "At CarltonOne I designed for two primary personas with very different needs — admins configuring the platform and employees using it. The tension: admins needed control and visibility, employees needed simplicity and speed.\n\nMy approach: design for the most constrained persona first (employees needing simplicity), then layer in admin controls as secondary paths. Progressive disclosure meant employees didn't see complexity they didn't need, but admins could surface it.\n\nThis maps directly to the Boomi tension between developer users building integrations and business users using no-code tools. Same principle: design for clarity first, expose depth for the power user. Role-based defaults let each persona see the right level of complexity without feeling limited or overwhelmed."
+    }
+  ],
+
+  myQuestions: {
+    asked: [],
+    shouldHaveAsked: []
+  }
+};
+
+let currentCat = "all";
+let currentSection = "feedback";
+
+function companyPill(company) {
+  const s = COMPANY_STYLE[company] || { bg: "rgba(150,150,150,.15)", color: "#aaa" };
+  return `<span class="co-pill" style="background:${s.bg};color:${s.color}">${company}</span>`;
+}
+
 function render() {
-  const companies = Object.keys(db);
-  const co = db[currentCo];
   document.getElementById("app").innerHTML = `
     <div class="header">
       <div class="header-top">
         <h1>Interview Prep</h1>
-        <span>${companies.length} ${companies.length === 1 ? "company" : "companies"}</span>
+        <span>${Object.keys(COMPANY_STYLE).length} companies</span>
       </div>
-      <nav class="company-nav">
-        ${companies.map(n => `<button class="co-btn ${n === currentCo ? "active" : ""}" onclick="switchCo('${n}')">${n}</button>`).join("")}
+      <nav class="cat-nav">
+        ${CATEGORIES.map(c => `
+          <button class="cat-btn ${c.key === currentCat ? "active" : ""}"
+                  onclick="switchCat('${c.key}')">${c.label}</button>
+        `).join("")}
       </nav>
     </div>
     <div class="section-tabs">
-      ${SECTIONS.map(s => `<button class="sec-btn ${s.key === currentSection ? "active" : ""}" onclick="switchSection('${s.key}')">${s.label}</button>`).join("")}
+      ${SECTIONS.map(s => `
+        <button class="sec-btn ${s.key === currentSection ? "active" : ""}"
+                onclick="switchSection('${s.key}')">${s.label}</button>
+      `).join("")}
     </div>
-    <div class="main">${renderSection(co)}</div>
+    <div class="main">${renderSection()}</div>
   `;
   document.querySelectorAll(".card-head").forEach(el => {
     el.addEventListener("click", () => el.closest(".card").classList.toggle("open"));
   });
 }
 
-function switchCo(n) { currentCo = n; render(); }
+function switchCat(c) { currentCat = c; render(); }
 function switchSection(s) { currentSection = s; render(); }
 
-function renderSection(co) {
-  if (!co) return empty("No data yet for this company.");
-  if (currentSection === "feedback")    return renderFeedback(co.feedback);
-  if (currentSection === "retro")       return renderRetro(co.retro);
-  if (currentSection === "expectedQs")  return renderExpected(co.expectedQs);
-  if (currentSection === "myQuestions") return renderMyQs(co.myQuestions);
+function filtered(arr) {
+  if (!arr) return [];
+  return currentCat === "all" ? arr : arr.filter(i => i.category === currentCat);
+}
+
+function renderSection() {
+  if (currentSection === "feedback")    return renderFeedback(filtered(db.feedback));
+  if (currentSection === "retro")       return renderRetro(filtered(db.retro));
+  if (currentSection === "expectedQs")  return renderExpected(filtered(db.expectedQs));
+  if (currentSection === "myQuestions") return renderMyQs(db.myQuestions);
   return "";
 }
 
 function renderFeedback(items) {
-  if (!items || !items.length) return empty("No feedback logged yet.");
+  if (!items.length) return empty("No feedback for this category.");
   return `<p class="section-label">Recurring patterns to fix</p>` +
     items.map((item, i) => `
       <div class="card">
         <div class="card-head">
           <div class="card-num">${i + 1}</div>
           <div class="card-title">${item.title}</div>
+          ${companyPill(item.company)}
           <span class="chevron">&#9654;</span>
         </div>
         <div class="card-body">
@@ -428,13 +475,14 @@ function renderFeedback(items) {
 }
 
 function renderRetro(items) {
-  if (!items || !items.length) return empty("No retro notes yet.");
+  if (!items.length) return empty("No retro notes for this category.");
   return `<p class="section-label">What I said vs. what to say</p>` +
     items.map(item => `
       <div class="card">
         <div class="card-head">
           <span class="badge ${item.risk}">${item.risk}</span>
           <div class="card-title">${item.question}</div>
+          ${companyPill(item.company)}
           <span class="chevron">&#9654;</span>
         </div>
         <div class="card-body">
@@ -451,13 +499,14 @@ function renderRetro(items) {
 }
 
 function renderExpected(items) {
-  if (!items || !items.length) return empty("No expected questions yet.");
+  if (!items.length) return empty("No expected questions for this category.");
   return `<p class="section-label">Scripted answers &#8212; click to expand</p>` +
     items.map(item => `
       <div class="card">
         <div class="card-head">
           <span class="badge ${item.risk}">${item.risk}</span>
           <div class="card-title">${item.question}</div>
+          ${companyPill(item.company)}
           <span class="chevron">&#9654;</span>
         </div>
         <div class="card-body">
