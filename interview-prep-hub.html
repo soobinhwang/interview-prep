@@ -241,6 +241,123 @@ const db = {
         answer: "At CarltonOne I designed for two primary personas with very different needs — admins configuring the platform and employees using it. The tension: admins needed control and visibility, employees needed simplicity and speed.\n\nMy approach: design for the most constrained persona first (employees needing simplicity), then layer in admin controls as secondary paths. Progressive disclosure meant employees didn’t see complexity they didn’t need, but admins could surface it.\n\nThis maps directly to the Boomi tension between developer users building integrations and business users using no-code tools. Same principle: design for clarity first, expose depth for the power user. Role-based defaults let each persona see the right level of complexity without feeling limited or overwhelmed."
       }
     ]
+  },
+
+  "CadMakers": {
+    feedback: [
+      {
+        title: "AI answer read as passive — flagged directly",
+        problem: "CadMakers explicitly listed AI fluency as a requirement. Your answer used phrases like 'I've been experimenting' and 'I'm interested in teams that...' — interest statements, not competence. The evaluator flagged this as a meaningful gap.",
+        fix: "Lead with artifacts every time: workshop you led, Figma plugin you built, Claude Code prototyping you do daily. Never say 'I'm interested in' — say 'I built' or 'I shipped.'",
+        triggers: ["What's your experience with AI tools?","Walk me through your process (mention AI in prototyping phase)"]
+      },
+      {
+        title: "Validation was the weakest moment — you flagged it yourself",
+        problem: "You identified this as 'the weakest moment — one of the most important questions in any design interview.' The answer defaulted to proxy signals and felt apologetic rather than methodical.",
+        fix: "Own the method. 'I designed a lightweight validation loop using three data sources — CS patterns from 100+ tickets, internal behavioral data, and heuristic review. Post-launch results confirmed the approach.' No qualifiers.",
+        triggers: ["How did you validate your designs?","How do you measure success?"]
+      },
+      {
+        title: "Never connected experience to their specific UX challenge",
+        problem: "CadMakers retro: 'Never connected my experience to their specific UX challenge — power vs. accessibility for non-specialist users.' The story ended at CarltonOne's outcome without bridging to CadMakers' context.",
+        fix: "For every company: one sentence at the end of each answer that maps your experience to their specific problem. Know their UX challenge before the interview and name it explicitly.",
+        triggers: ["Tell me about a project you're proud of","Walk me through your design process","Any portfolio question"]
+      },
+      {
+        title: "Answers not sharp enough — evaluators noticed",
+        problem: "Evaluators were asking 'can she be sharper in how she communicates decisions?' Long answers signal uncertainty. When you know something cold, two sentences is enough.",
+        fix: "Answer first, elaborate second. 1-2 sentence headline → stop → wait. Only elaborate if they ask or silence invites it.",
+        triggers: ["Any decision-making question","Walk me through your design process","Why did you choose that approach?"]
+      }
+    ],
+    myQuestions: { asked: [], shouldHaveAsked: [] },
+    retro: [
+      {
+        question: "What's your experience with AI tools?",
+        risk: "high",
+        whatISaid: "Used 'I've been actively experimenting' and 'I'm especially interested in teams where AI is applied thoughtfully.' Aspirational, no concrete artifacts. Read as passive for a JD that listed AI fluency as a requirement.",
+        betterAnswer: "I led an 8-week AI workshop at CarltonOne — upskilled the entire design team. I built a Figma plugin that automated part of our design-to-dev handoff. I prototype in working code using Claude Code daily — five interaction patterns in the time it takes for one static mockup. That's not theoretical; it's how I actually work."
+      },
+      {
+        question: "How did you validate your designs?",
+        risk: "high",
+        whatISaid: "Defaulted to proxy signals and qualified every statement. Sounded apologetic. Flagged by self as 'the weakest moment in the interview.'",
+        betterAnswer: "I designed a lightweight validation loop: CS patterns from 100+ tickets, internal behavioral data, heuristic review. Post-launch: 50% fewer navigation clicks and 40% increase in featured brand engagement confirmed the approach. No qualifiers — the results speak."
+      }
+    ],
+    expectedQs: []
+  },
+
+  "OpusClip": {
+    feedback: [
+      {
+        title: "Missed opportunities to connect to OpusClip's needs",
+        problem: "OpusClip retro: 'Missed opportunities to connect experience to OpusClip's needs.' The CarltonOne story was told well but never bridged to what OpusClip specifically builds or the UX problems they're solving.",
+        fix: "Research what OpusClip's specific design challenges are before the interview. End every answer: 'And this is why it maps directly to [OpusClip's specific context].'",
+        triggers: ["Tell me about a project","Walk me through your process","Any portfolio question"]
+      },
+      {
+        title: "Answers were unfocused and rambled",
+        problem: "OpusClip flagged 'some answers were unfocused/rambling.' Long answers signal uncertainty and lose the interviewer before you land the point.",
+        fix: "Headline first: answer the question in 1-2 sentences, stop, let them react. Elaborate only if invited. Practice cutting answers in half and seeing if the point still lands.",
+        triggers: ["Tell me about yourself","Walk me through your design process","Any open-ended question"]
+      },
+      {
+        title: "Presentation ran long — time management flagged",
+        problem: "Time management was explicitly flagged. Running over signals you haven't practiced enough to know what to cut, and it can cost you the design challenge portion.",
+        fix: "Time every answer when practicing. Walk me through your process: 90 seconds max. Portfolio presentation: know your hard stop. If you catch yourself saying 'and also...' — stop.",
+        triggers: ["Tell me about yourself","Portfolio presentation","Design challenge walkthrough"]
+      },
+      {
+        title: "Validation leaned on CS team, not owned as a method",
+        problem: "When pushed on whether you got enough information, the answer leaned on the CS team doing the research for you — passive framing instead of owning the approach as deliberate.",
+        fix: "Reframe proxy signals as a deliberate multi-source strategy you designed, not a workaround for lacking access. Own the method, cite the outcome.",
+        triggers: ["How did you validate your designs?","What research did you do?","How do you make decisions without user access?"]
+      }
+    ],
+    myQuestions: { asked: [], shouldHaveAsked: [] },
+    retro: [
+      {
+        question: "Walk me through a project (portfolio)",
+        risk: "high",
+        whatISaid: "Told the CarltonOne story well — but ran long and never connected the outcome to OpusClip's specific context or challenges.",
+        betterAnswer: "Same story, timed to 90 seconds, ending with: 'The reason this maps to OpusClip is [their specific challenge]. The same principle applies — [connect the dots explicitly].' Then stop."
+      }
+    ],
+    expectedQs: []
+  },
+
+  "Cova": {
+    feedback: [
+      {
+        title: "Validation always fell back to proxy signals",
+        problem: "At Cova Technical, almost every answer about measuring success fell back on 'proxy signals,' 'CS feedback,' and 'directional indicators.' Every answer hedged. Interviewers noticed the pattern across questions.",
+        fix: "Own proxy signals as a deliberate research strategy, not a workaround. Cite specific data sources, name the method, then land on the outcome: 'The post-launch results confirmed the approach.'",
+        triggers: ["How did you measure success?","How did you validate your designs?","How do you know if something worked?"]
+      },
+      {
+        title: "Engineering collaboration stayed too high-level",
+        problem: "Cova feedback: wanted 'more detailed stories of going back and forth with developers.' Answers stayed at 'I bring engineers in early' without the specific, messy back-and-forth that makes stories believable.",
+        fix: "Give ONE specific moment: 'I proposed X, the developer flagged Y, so we changed to Z and shipped in half the time.' The specificity is what makes it credible — not the general principle.",
+        triggers: ["How do you work with engineers?","Tell me about a cross-functional collaboration","Describe a time you had to compromise on a design decision"]
+      }
+    ],
+    myQuestions: { asked: [], shouldHaveAsked: [] },
+    retro: [
+      {
+        question: "How do you measure success / validate designs?",
+        risk: "high",
+        whatISaid: "Every answer hedged with 'proxy signals,' 'CS feedback,' 'directional indicators.' Pattern repeated across multiple questions in the same interview — noticeable.",
+        betterAnswer: "Name the method once, clearly: 'I use a multi-source validation loop — CS patterns from 100+ tickets, internal behavioral data, heuristic review. Post-launch: 50% fewer clicks confirmed we solved the right problem.' Then commit. No hedging."
+      },
+      {
+        question: "How do you work with engineers?",
+        risk: "medium",
+        whatISaid: "Stayed at the principle level: 'I bring engineers in early, I value collaboration.' No specific story of a real back-and-forth.",
+        betterAnswer: "'I proposed exposing all category levels in the nav. The developer flagged a performance issue — too many nodes on load. We scoped to two levels and shipped in half the time. That trade-off conversation is what I mean by early collaboration.' Specific, credible, done."
+      }
+    ],
+    expectedQs: []
   }
 };
 
