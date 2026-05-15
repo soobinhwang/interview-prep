@@ -197,21 +197,22 @@ const COMPANY_STYLE = {
 };
 
 const SECTIONS = [
-  { key: "all",         label: "All"          },
-  { key: "feedback",    label: "Feedback"     },
-  { key: "retro",       label: "Retro"        },
-  { key: "expectedQs",  label: "Expected Q's" },
-  { key: "myQuestions", label: "My Questions" }
+  { key: "questions", label: "Questions" },
+  { key: "feedback",  label: "Feedback"  },
+  { key: "retro",     label: "Retro"     }
 ];
 
-const CATEGORIES = [
-  { key: "all",        label: "All topics"           },
-  { key: "research",   label: "Research & Validation" },
-  { key: "ai",         label: "AI & Tools"            },
-  { key: "process",    label: "Design Process"        },
-  { key: "collab",     label: "Collaboration"         },
-  { key: "behavioral", label: "Behavioral"            },
-  { key: "personas",   label: "Personas & Users"      }
+// Pills shown under the Questions tab
+const Q_FILTERS = [
+  { key: "all",          label: "All"                   },
+  { key: "expectedQs",   label: "Expected Q's"          },
+  { key: "myQuestions",  label: "My Questions"          },
+  { key: "research",     label: "Research & Validation" },
+  { key: "ai",           label: "AI & Tools"            },
+  { key: "process",      label: "Design Process"        },
+  { key: "collab",       label: "Collaboration"         },
+  { key: "behavioral",   label: "Behavioral"            },
+  { key: "personas",     label: "Personas & Users"      }
 ];
 
 const db = {
@@ -437,8 +438,8 @@ const db = {
   }
 };
 
-let currentSection = "all";
-let currentCat = "all";
+let currentSection = "questions";
+let currentQFilter = "all";
 
 function companyPill(company) {
   const s = COMPANY_STYLE[company] || { bg: "rgba(150,150,150,.15)", color: "#aaa" };
@@ -446,7 +447,6 @@ function companyPill(company) {
 }
 
 function render() {
-  const showCatFilter = currentSection === "all";
   document.getElementById("app").innerHTML = `
     <div class="header">
       <div class="header-top">
@@ -460,11 +460,11 @@ function render() {
         `).join("")}
       </nav>
     </div>
-    ${showCatFilter ? `
+    ${currentSection === "questions" ? `
       <div class="secondary-nav">
-        ${CATEGORIES.map(c => `
-          <button class="snav-btn ${c.key === currentCat ? "active" : ""}"
-                  onclick="switchCat('${c.key}')">${c.label}</button>
+        ${Q_FILTERS.map(f => `
+          <button class="snav-btn ${f.key === currentQFilter ? "active" : ""}"
+                  onclick="switchQFilter('${f.key}')">${f.label}</button>
         `).join("")}
       </div>` : ""}
     <div class="main">${renderSection()}</div>
@@ -475,31 +475,31 @@ function render() {
 }
 
 function switchSection(s) { currentSection = s; render(); }
-function switchCat(c) { currentCat = c; render(); }
-
-function filtered(arr) {
-  if (!arr) return [];
-  return currentCat === "all" ? arr : arr.filter(i => i.category === currentCat);
-}
+function switchQFilter(f) { currentQFilter = f; render(); }
 
 function renderSection() {
-  if (currentSection === "all")         return renderAll();
-  if (currentSection === "feedback")    return renderFeedback(db.feedback);
-  if (currentSection === "retro")       return renderRetro(db.retro);
-  if (currentSection === "expectedQs")  return renderExpected(db.expectedQs);
-  if (currentSection === "myQuestions") return renderMyQs(db.myQuestions);
+  if (currentSection === "questions") return renderQuestions();
+  if (currentSection === "feedback")  return renderFeedback(db.feedback);
+  if (currentSection === "retro")     return renderRetro(db.retro);
   return "";
 }
 
-function renderAll() {
-  const fb = filtered(db.feedback);
-  const rt = filtered(db.retro);
-  const eq = filtered(db.expectedQs);
-  if (!fb.length && !rt.length && !eq.length) return empty("Nothing found for this topic.");
+function renderQuestions() {
+  const f = currentQFilter;
+  // My Questions only
+  if (f === "myQuestions") return renderMyQs(db.myQuestions);
+  // Expected Q's only (all categories)
+  if (f === "expectedQs")  return renderExpected(db.expectedQs);
+  // Topic filter → only Expected Q's filtered by category
+  const topicKeys = ["research","ai","process","collab","behavioral","personas"];
+  if (topicKeys.includes(f)) {
+    const filtered = db.expectedQs.filter(i => i.category === f);
+    return renderExpected(filtered);
+  }
+  // All — show Expected Q's + My Questions
   let html = "";
-  if (fb.length) html += `<div class="group-header">Feedback (${fb.length})</div>` + renderFeedback(fb, true);
-  if (rt.length) html += `<div class="group-header">Retro (${rt.length})</div>` + renderRetro(rt, true);
-  if (eq.length) html += `<div class="group-header">Expected Q's (${eq.length})</div>` + renderExpected(eq, true);
+  if (db.expectedQs.length) html += `<div class="group-header">Expected Q's (${db.expectedQs.length})</div>` + renderExpected(db.expectedQs, true);
+  html += `<div class="group-header">My Questions</div>` + renderMyQs(db.myQuestions);
   return html;
 }
 
